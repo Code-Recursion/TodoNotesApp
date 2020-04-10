@@ -33,12 +33,12 @@ public class LoginActivity extends AppCompatActivity {
                 String user_name = editTextUsername.getText().toString();
 
                 if(!TextUtils.isEmpty(full_name) && !TextUtils.isEmpty(user_name)) {
-                    Intent intent = new Intent(LoginActivity.this,MyNotesActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MyNotesActivity.class);
                     intent.putExtra("full_name", full_name);
                     startActivity(intent);
-//              Log.d("LoginActivity", "clicked");
+//
                 } else {
-                    Toast.makeText(LoginActivity.this,"Fullname and username can't be empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Full name and username can't be empty",Toast.LENGTH_SHORT).show();
                 }
             }
         };

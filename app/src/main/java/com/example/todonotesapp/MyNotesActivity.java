@@ -20,7 +20,7 @@ public class MyNotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notes);
 
-        fabAddNotes.findViewById(R.id.fabAddNotes);
+        fabAddNotes = findViewById(R.id.fabAddNotes);
 
         Intent intent = getIntent();
         intent.getStringExtra("full_name");
@@ -29,7 +29,7 @@ public class MyNotesActivity extends AppCompatActivity {
         fabAddNotes.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Log.d("MyNotesActivity","clicked");
             }
         });

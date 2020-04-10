@@ -19,4 +19,25 @@
 
         app:layout_constraintStart_toStartOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
+    <TextView
+        android:id="@+id/TextViewTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/TextViewDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/TextViewTitle"
+        app:layout_constraintStart_toStartOf="@+id/TextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewTitle"></TextView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.todonotesapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -15,15 +16,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.todonotesapp.model.Notes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class MyNotesActivity extends AppCompatActivity {
 
     String fullName;
     FloatingActionButton fabAddNotes;
-    TextView textTitle, textDescription;
+   // TextView textTitle, textDescription;
     SharedPreferences sharedPreferences;
     String TAG = "MyNotesActivity";
+    RecyclerView recyclerViewNotes;
+    ArrayList<Notes> notesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +61,14 @@ public class MyNotesActivity extends AppCompatActivity {
         fullName = intent.getStringExtra(AppConstant.FULL_NAME);
         if(TextUtils.isEmpty(fullName)) {
             fullName = sharedPreferences.getString(PrefConstant.FULL_NAME,"");
+
         }
     }
 
     private void bindView() {
 
         fabAddNotes = findViewById(R.id.fabAddNotes);
-        textTitle = findViewById(R.id.TextViewTitle);
-        textDescription = findViewById(R.id.TextViewDescription);
-
+        recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
     }
 
     private void setupDialogBox() {
@@ -82,10 +87,13 @@ public class MyNotesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String title = editTextTitle.getText().toString();
-                String desc = editTextDescription.getText().toString();
+                String description = editTextDescription.getText().toString();
+                Notes notes = new Notes();
+                notes.setTitle(title);
+                notes.setDescription(description);
+                notesList.add(notes);
+                Log.d(TAG, String.valueOf(notesList.size()));
 
-                textTitle.setText(title);
-                textDescription.setText(desc);
                 dialog.hide();
             }
         });

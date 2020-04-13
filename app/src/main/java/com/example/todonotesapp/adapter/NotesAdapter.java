@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.todonotesapp.MyNotesActivity;
+import com.example.todonotesapp.ClickListeners.ItemClickListener;
 import com.example.todonotesapp.R;
 import com.example.todonotesapp.model.Notes;
 
@@ -17,9 +17,14 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    List<Notes> listNotes;
-    public NotesAdapter(List<Notes> list) {
+    private List<Notes> listNotes;
+
+    private ItemClickListener itemClickListener;
+
+
+    public NotesAdapter(List<Notes> list, ItemClickListener itemClickListener) {
         this.listNotes = list;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -32,12 +37,21 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         // bind the data from list to the viewholder
-        Notes notes = listNotes.get(position);
+
+        final Notes notes = listNotes.get(position);
+
         String title = notes.getTitle();
         String description = notes.getDescription();
         holder.textViewTitle.setText(title);
         holder.textViewDescription.setText(description);
 
+        // setting onclick listener on ITEMs
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onclick(notes);
+            }
+        });
     }
 
     @Override

@@ -16,7 +16,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.todonotesapp.ClickListeners.ItemClickListener;
 import com.example.todonotesapp.adapter.NotesAdapter;
 import com.example.todonotesapp.model.Notes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -82,7 +84,7 @@ public class MyNotesActivity extends AppCompatActivity {
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(view)
-                .setCancelable(false)
+                .setCancelable(true)
                 .create();
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -90,10 +92,17 @@ public class MyNotesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
-                Notes notes = new Notes();
-                notes.setTitle(title);
-                notes.setDescription(description);
-                notesList.add(notes);
+
+                if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)) {
+
+                    Notes notes = new Notes();
+                    notes.setTitle(title);
+                    notes.setDescription(description);
+                    notesList.add(notes);
+                } else {
+                    Toast.makeText(MyNotesActivity.this, "Title or Description can't be Empty",Toast.LENGTH_SHORT).show();
+                }
+
 //              Log.d(TAG, String.valueOf(notesList.size()));
 
                 setupRecyclerView();
@@ -105,7 +114,23 @@ public class MyNotesActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        NotesAdapter notesAdapter = new NotesAdapter(notesList);
+
+        //interface
+        ItemClickListener itemClickListener = new ItemClickListener() {
+            @Override
+            public void onclick(Notes notes) {
+//                    Log.d(TAG, notes.getTitle());
+
+                Intent intent = new Intent(MyNotesActivity.this, DetailActivity.class);
+                intent.putExtra(AppConstant.TITLE,notes.getTitle());
+                intent.putExtra(AppConstant.DESCRIPTION,notes.getDescription());
+                startActivity(intent);
+            }
+
+        };
+
+        NotesAdapter notesAdapter = new NotesAdapter(notesList, itemClickListener);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyNotesActivity.this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewNotes.setLayoutManager(linearLayoutManager);

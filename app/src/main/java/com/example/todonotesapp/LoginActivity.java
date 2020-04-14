@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if( !TextUtils.isEmpty(fullName) && !TextUtils.isEmpty(userName)) {
                     Intent intent = new Intent(LoginActivity.this, MyNotesActivity.class);
-                    intent.putExtra(AppConstant.FULL_NAME, fullName);
+                    intent.putExtra(AppConstant.INSTANCE.getFULL_NAME(), fullName);
                     startActivity(intent);
 
                     //login
@@ -64,17 +64,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveFullName(String fullName) {
         editor = sharedPreferences.edit();
-        editor.putString(PrefConstant.FULL_NAME,fullName);
+        editor.putString(PrefConstant.INSTANCE.getFULL_NAME(),fullName);
         editor.apply();
     }
 
     private void saveLoginStatus() {
         editor = sharedPreferences.edit();
-        editor.putBoolean(PrefConstant.IS_LOGGED_IN,true);
+        editor.putBoolean(PrefConstant.INSTANCE.getIS_LOGGED_IN(),true);
         editor.apply();
     }
 
     private void setupSharedPreferences() {
-        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME,MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(PrefConstant.INSTANCE.getSHARED_PREFERENCE_NAME(),MODE_PRIVATE);
     }
 }

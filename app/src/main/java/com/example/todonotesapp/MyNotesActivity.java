@@ -5,17 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todonotesapp.ClickListeners.ItemClickListener;
@@ -57,14 +54,14 @@ public class MyNotesActivity extends AppCompatActivity {
     }
 
     private void setupSharedPreference() {
-        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME,MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(PrefConstant.INSTANCE.getSHARED_PREFERENCE_NAME(),MODE_PRIVATE);
     }
 
     private void getIntentDate() {
         Intent intent = getIntent();
-        fullName = intent.getStringExtra(AppConstant.FULL_NAME);
+        fullName = intent.getStringExtra(AppConstant.INSTANCE.getFULL_NAME());
         if(TextUtils.isEmpty(fullName)) {
-            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME,"");
+            fullName = sharedPreferences.getString(PrefConstant.INSTANCE.getFULL_NAME(),"");
 
         }
     }
@@ -118,12 +115,12 @@ public class MyNotesActivity extends AppCompatActivity {
         //interface
         ItemClickListener itemClickListener = new ItemClickListener() {
             @Override
-            public void onclick(Notes notes) {
+            public void onClick(Notes notes) {
 //                    Log.d(TAG, notes.getTitle());
 
                 Intent intent = new Intent(MyNotesActivity.this, DetailActivity.class);
-                intent.putExtra(AppConstant.TITLE,notes.getTitle());
-                intent.putExtra(AppConstant.DESCRIPTION,notes.getDescription());
+                intent.putExtra(AppConstant.INSTANCE.getTITLE(),notes.getTitle());
+                intent.putExtra(AppConstant.INSTANCE.getDESCRIPTION(),notes.getDescription());
                 startActivity(intent);
             }
 

@@ -6,25 +6,27 @@ import androidx.appcompat.app.AppCompatActivity
 
 class DetailActivity : AppCompatActivity() {
     val TAG = "DetailActivity"
-    lateinit var textViewTitle: TextView
-    lateinit var textViewDescription:TextView
+
+    private lateinit var textViewTitle: TextView
+    private lateinit var textViewDescription:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
-        bindViews();
-        setupIntentData();
+        bindViews()
+        setupIntentData()
     }
 
     private fun setupIntentData() {
-        val intent = intent
 
-        //getIntent
+        val intent = intent          //getIntent
+
         val title = intent.getStringExtra(AppConstant.TITLE)
+
         val description = intent.getStringExtra(AppConstant.DESCRIPTION)
 
         //setText()
+
         textViewTitle.text = title
         textViewDescription.text = description
     }

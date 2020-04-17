@@ -34,7 +34,11 @@ class MyNotesActivity : AppCompatActivity() {
         setUpSharedPreference()
         getIntentData()
 
-        fabAddNotes.setOnClickListener { setUpDialogBox() }
+        fabAddNotes.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                setUpDialogBox()
+            }
+        })
 
         // Log.d("MyNotesActivity",fullName);
         supportActionBar?.title = fullName

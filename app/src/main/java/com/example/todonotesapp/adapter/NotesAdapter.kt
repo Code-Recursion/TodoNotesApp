@@ -21,7 +21,7 @@ class NotesAdapter(private val list : List<Notes>, private val itemClickListener
     }
 
 //    override fun onBindViewHolder(holder: NotesAdapter.ViewHolder, position: Int) {
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: NotesAdapter.ViewHolder, position: Int) {
 
         val notes = list[position] // int java -> list.get(position)
         val title = notes.title

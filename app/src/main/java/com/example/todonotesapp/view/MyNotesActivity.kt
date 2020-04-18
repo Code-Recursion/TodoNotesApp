@@ -1,8 +1,9 @@
-package com.example.todonotesapp
+package com.example.todonotesapp.view
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -12,9 +13,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todonotesapp.utils.AppConstant
 import com.example.todonotesapp.ClickListeners.ItemClickListener
+import com.example.todonotesapp.NotesApp
+import com.example.todonotesapp.utils.PrefConstant
+import com.example.todonotesapp.R
 import com.example.todonotesapp.adapter.NotesAdapter
-import com.example.todonotesapp.model.Notes
+import com.example.todonotesapp.db.Notes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MyNotesActivity : AppCompatActivity() {
@@ -24,7 +29,7 @@ class MyNotesActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     val TAG = "MyNotesActivity"
     lateinit var recyclerViewNotes: RecyclerView
-    var notesList = ArrayList<Notes>()
+    var listNotes = ArrayList<Notes>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +38,8 @@ class MyNotesActivity : AppCompatActivity() {
         bindView()
         setUpSharedPreference()
         getIntentData()
+        getDataFromDataBase()
+        setUpRecyclerView()
 
         fabAddNotes.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
@@ -43,6 +50,13 @@ class MyNotesActivity : AppCompatActivity() {
         // Log.d("MyNotesActivity",fullName);
         supportActionBar?.title = fullName
 
+    }
+
+    private fun getDataFromDataBase() {
+        val notesApp = applicationContext as NotesApp
+        val notesDao = notesApp.getNotesDb().notesDao()
+//        Log.d(TAG, notesDao.getAll().size.toString())
+        listNotes.addAll(notesDao.getAll())
     }
 
     private fun setUpSharedPreference() {
@@ -72,26 +86,42 @@ class MyNotesActivity : AppCompatActivity() {
         //Dialog
         val dialog = AlertDialog.Builder(this)
                 .setView(view)
-                .setCancelable(true)
+                .setCancelable(true) // make the dialog to be cancellable
                 .create()
         buttonSubmit.setOnClickListener {
             val title = editTextTitle.text.toString()
             val description = editTextDescription.text.toString()
 
             if (title.isNotEmpty() && description.isNotEmpty()) {
-                val notes = Notes(title,description)
-                notesList.add(notes)
+                val notes = Notes(title = title, description = description)
+                listNotes.add(notes)
+                addNotesToDb(notes)// add notes to db
             } else {
                 Toast.makeText(this@MyNotesActivity, "Title or Description can't be Empty!", Toast.LENGTH_SHORT).show()
             }
             dialog.hide()
-            setUpRecyclerView()
+//            setUpRecyclerView()
         }
         dialog.show()
     }
 
+    private fun addNotesToDb(notes: Notes) {
+        // insert notes in DB
+        val notesApp = applicationContext as NotesApp
+        val notesDao = notesApp.getNotesDb().notesDao()
+        notesDao.insert(notes)
+    }
+
     private fun setUpRecyclerView() {
         val itemClickListeners = object : ItemClickListener {
+            override fun onUpdate(notes: Notes) {
+                //update the value is checked or not
+                Log.d(TAG,notes.isTaskCompleted.toString())
+                val notesApp = applicationContext as NotesApp
+                val notesDao = notesApp.getNotesDb().notesDao()
+                notesDao.updateNotes(notes)
+            }
+
             override fun onClick(notes: Notes) {
                 val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
                 intent.putExtra(AppConstant.TITLE, notes.title)
@@ -100,7 +130,7 @@ class MyNotesActivity : AppCompatActivity() {
             }
         }
 
-        val notesAdapter = NotesAdapter(notesList, itemClickListeners)
+        val notesAdapter = NotesAdapter(listNotes, itemClickListeners)
         val linearLayoutManager = LinearLayoutManager(this@MyNotesActivity)
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         recyclerViewNotes.layoutManager = linearLayoutManager

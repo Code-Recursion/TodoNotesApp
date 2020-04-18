@@ -1,8 +1,10 @@
-package com.example.todonotesapp
+package com.example.todonotesapp.view
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.todonotesapp.utils.AppConstant
+import com.example.todonotesapp.R
 
 class DetailActivity : AppCompatActivity() {
     val TAG = "DetailActivity"

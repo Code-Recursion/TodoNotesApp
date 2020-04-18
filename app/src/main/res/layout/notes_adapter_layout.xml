@@ -15,12 +15,13 @@
         android:layout_width="0dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_height="wrap_content"
+        android:text="TITLE"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/checkboxMarkStatus"
         android:id="@+id/textViewTitle"/>
 
     <TextView
@@ -28,11 +29,23 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        android:text="DESCRIPTION"
         app:layout_constraintEnd_toEndOf="@id/textViewTitle"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:id="@+id/textViewDescription"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:id="@+id/checkboxMarkStatus"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/textViewDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewTitle"
+        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

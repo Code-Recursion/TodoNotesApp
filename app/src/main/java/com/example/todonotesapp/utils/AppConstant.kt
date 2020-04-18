@@ -1,4 +1,4 @@
-package com.example.todonotesapp
+package com.example.todonotesapp.utils
 
 object AppConstant {
     var FULL_NAME = "full_name"

@@ -3,14 +3,14 @@
     package="com.example.todonotesapp">
 
     <application
+        android:name=".NotesApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Todo App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".NotesApp"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".view.AddNotesActivity"></activity>
         <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.DetailActivity"/>
-        <activity android:name=".view.LoginActivity"/>
-        <activity android:name=".view.MyNotesActivity"/>
+        <activity android:name=".view.DetailActivity" />
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.MyNotesActivity" />
     </application>
 
 </manifest>

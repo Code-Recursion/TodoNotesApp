@@ -31,6 +31,8 @@ class MyNotesActivity : AppCompatActivity() {
     lateinit var recyclerViewNotes: RecyclerView
     var listNotes = ArrayList<Notes>()
 
+    val ADD_NOTES_CODE = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_notes)
@@ -43,7 +45,9 @@ class MyNotesActivity : AppCompatActivity() {
 
         fabAddNotes.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                setUpDialogBox()
+                // setUpDialogBox()
+                val intent = Intent(this@MyNotesActivity, AddNotesActivity::class.java)
+                startActivityForResult(intent, ADD_NOTES_CODE)
             }
         })
 

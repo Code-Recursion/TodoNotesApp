@@ -70,6 +70,7 @@ class AddNotesActivity : AppCompatActivity() {
         })
 
         dialog.show()
+
     }
 
     private fun bindViews() {

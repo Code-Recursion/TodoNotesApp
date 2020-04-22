@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="26dp"
-        android:src="@mipmap/ic_launcher"
+        android:background="@drawable/plus_la"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
         android:layout_height="150dp"/>
 
@@ -24,6 +24,7 @@
         android:layout_marginTop="5dp"
         android:text="Add Notes"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,12 +82,16 @@
         android:id="@+id/buttonSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="264dp"
+        android:backgroundTint="#6200EA"
         android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/container_description"
         app:layout_constraintStart_toStartOf="@+id/container_description"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/container_description"
+        app:layout_constraintVertical_bias="0.186">
 
     </com.google.android.material.button.MaterialButton>
 

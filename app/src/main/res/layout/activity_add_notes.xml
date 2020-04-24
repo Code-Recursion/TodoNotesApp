@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="26dp"
-        android:background="@drawable/plus_la"
+        android:background="@drawable/plus_large"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
         android:layout_height="150dp"/>
 
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="10dp"
         android:hint="Title"
         app:layout_constraintEnd_toEndOf="parent"

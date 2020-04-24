@@ -3,8 +3,10 @@ package com.example.todonotesapp.view
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,9 +18,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
+import com.example.todonotesapp.BuildConfig
 import com.example.todonotesapp.R
+import com.example.todonotesapp.utils.AppConstant
+import java.io.File
+import java.util.*
 import java.util.jar.Manifest
+import kotlin.collections.ArrayList
 
 class AddNotesActivity : AppCompatActivity() {
 
@@ -48,6 +56,16 @@ class AddNotesActivity : AppCompatActivity() {
                     setupDialog()
                 }
             }
+        })
+        buttonSubmit.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                val intent = Intent()
+                intent.putExtra(AppConstant.TITLE, editTextTitle.text.toString())
+                intent.putExtra(AppConstant.DESCRIPTION, editTextDescription.text.toString())
+                intent.putExtra(AppConstant.IMAGE_PATH, picturePath)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
 
         })
     }
@@ -63,7 +81,7 @@ class AddNotesActivity : AppCompatActivity() {
         if(storagePermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionNeeded.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
         }
-        if(!listPermissionNeeded.isEmpty()) {
+        if(listPermissionNeeded.isNotEmpty()) {
             ActivityCompat.requestPermissions(this,listPermissionNeeded.toTypedArray<String>(), MY_PERMISSION_CODE)
             return false
         }
@@ -93,7 +111,17 @@ class AddNotesActivity : AppCompatActivity() {
 
         textViewCamera.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View?) {
-
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                var photoFile: File? = null
+                photoFile = createImage()
+                if(photoFile != null) {
+                    val photoURI = FileProvider.getUriForFile(this@AddNotesActivity, BuildConfig.APPLICATION_ID+".provider",photoFile)
+                    picturePath = photoFile.absolutePath
+                    Log.d(TAG, picturePath)
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent,REQUEST_CODE_CAMERA)
+                    dialog.hide()
+                }
             }
 
         })
@@ -109,6 +137,15 @@ class AddNotesActivity : AppCompatActivity() {
 
         dialog.show()
 
+    }
+
+    private fun createImage(): File? {
+
+        val timeStamp = java.text.SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+        val fileName = "JPEG_"+timeStamp+"_"
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(fileName, ".jpg",storageDir
+        )
     }
 
     private fun bindViews() {
@@ -136,7 +173,7 @@ class AddNotesActivity : AppCompatActivity() {
                     Glide.with(this).load(picturePath).into(imageViewNotes)
                 }
                 REQUEST_CODE_CAMERA -> {
-
+                    Glide.with(this).load(picturePath).into(imageViewNotes)
                 }
             }
         }

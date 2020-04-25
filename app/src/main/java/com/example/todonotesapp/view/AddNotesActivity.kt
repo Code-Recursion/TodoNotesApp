@@ -112,7 +112,7 @@ class AddNotesActivity : AppCompatActivity() {
         textViewCamera.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View?) {
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                var photoFile: File? = null
+                var photoFile: File? = createImage()
                 photoFile = createImage()
                 if(photoFile != null) {
                     val photoURI = FileProvider.getUriForFile(this@AddNotesActivity, BuildConfig.APPLICATION_ID+".provider",photoFile)
@@ -128,9 +128,9 @@ class AddNotesActivity : AppCompatActivity() {
 
         textViewGallery.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View?) {
-                val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 startActivityForResult(intent, REQUEST_CODE_GALLERY)
-                    dialog.hide()
+                dialog.hide()
             }
 
         })
@@ -138,6 +138,8 @@ class AddNotesActivity : AppCompatActivity() {
         dialog.show()
 
     }
+
+
 
     private fun createImage(): File? {
 

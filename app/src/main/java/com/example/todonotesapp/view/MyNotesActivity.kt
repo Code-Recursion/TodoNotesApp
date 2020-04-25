@@ -13,6 +13,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.Constraints
+import androidx.work.OneTimeWorkRequest
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.todonotesapp.utils.AppConstant
 import com.example.todonotesapp.ClickListeners.ItemClickListener
 import com.example.todonotesapp.NotesApp
@@ -20,7 +24,9 @@ import com.example.todonotesapp.utils.PrefConstant
 import com.example.todonotesapp.R
 import com.example.todonotesapp.adapter.NotesAdapter
 import com.example.todonotesapp.db.Notes
+import com.example.todonotesapp.workmanager.MyWorker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.concurrent.TimeUnit
 
 class MyNotesActivity : AppCompatActivity() {
 
@@ -42,6 +48,7 @@ class MyNotesActivity : AppCompatActivity() {
         getIntentData()
         getDataFromDataBase()
         setUpRecyclerView()
+        setupWorkManager()
 
         fabAddNotes.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
@@ -54,6 +61,17 @@ class MyNotesActivity : AppCompatActivity() {
         // Log.d("MyNotesActivity",fullName);
         supportActionBar?.title = fullName
 
+    }
+
+    private fun setupWorkManager() {
+        val constraint = Constraints.Builder()
+                .build()
+        val request = PeriodicWorkRequest
+                .Builder(MyWorker::class.java, 15, TimeUnit.MINUTES)
+                .setConstraints(constraint)
+                .build()
+
+      WorkManager.getInstance().enqueue(request)
     }
 
     private fun getDataFromDataBase() {

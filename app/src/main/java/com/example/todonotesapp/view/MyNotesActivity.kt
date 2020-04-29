@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -29,11 +31,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.concurrent.TimeUnit
 
 class MyNotesActivity : AppCompatActivity() {
-
+    val TAG = "MyNotesActivity"
     lateinit var fullName : String
     lateinit var fabAddNotes: FloatingActionButton
     lateinit var sharedPreferences: SharedPreferences
-    val TAG = "MyNotesActivity"
     lateinit var recyclerViewNotes: RecyclerView
     var listNotes = ArrayList<Notes>()
 
@@ -171,5 +172,18 @@ class MyNotesActivity : AppCompatActivity() {
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         recyclerViewNotes.layoutManager = linearLayoutManager
         recyclerViewNotes.adapter = notesAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == R.id.blog) {
+            Log.d(TAG, "Clicked on Blog")
+        }
+        return super.onOptionsItemSelected(item!!)
     }
 }

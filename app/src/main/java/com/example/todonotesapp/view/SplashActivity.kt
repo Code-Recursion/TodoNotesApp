@@ -63,7 +63,8 @@ class SplashActivity : AppCompatActivity() {
                     // Log and toast
 
                     Log.d("SplashActivity", token)
-                    Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Welcome!" , Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
                 })
     }
 

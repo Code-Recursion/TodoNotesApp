@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         setUpSharedPreferences()
         checkLoginStatus()
         getFCMToken()
-        setupNotification("Welcome to Todo Notes App")
+       // setupNotification("Welcome to Todo Notes App")
     }
 
     private fun setupNotification(body: String?) {
@@ -62,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
 
                     // Log and toast
 
-                    Log.d("SplashActivity", token)
+                    Log.d("SplashActivity", token!!)
                     Toast.makeText(baseContext, "Welcome!" , Toast.LENGTH_SHORT).show()
                     //Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
                 })

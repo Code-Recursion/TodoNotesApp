@@ -150,7 +150,14 @@ class MyNotesActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView() {
-        val itemClickListeners = object : ItemClickListener {
+        val itemClickListener = object : ItemClickListener {
+
+            override fun onClick(notes: Notes) {
+                val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
+                intent.putExtra(AppConstant.TITLE, notes.title)
+                intent.putExtra(AppConstant.DESCRIPTION, notes.description)
+                startActivity(intent)
+            }
             override fun onUpdate(notes: Notes) {
                 //update the value is checked or not
                 Log.d(TAG,notes.isTaskCompleted.toString())
@@ -159,15 +166,10 @@ class MyNotesActivity : AppCompatActivity() {
                 notesDao.updateNotes(notes)
             }
 
-            override fun onClick(notes: Notes) {
-                val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
-                intent.putExtra(AppConstant.TITLE, notes.title)
-                intent.putExtra(AppConstant.DESCRIPTION, notes.description)
-                startActivity(intent)
-            }
+
         }
 
-        val notesAdapter = NotesAdapter(listNotes, itemClickListeners)
+        val notesAdapter = NotesAdapter(listNotes, itemClickListener)
         val linearLayoutManager = LinearLayoutManager(this@MyNotesActivity)
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         recyclerViewNotes.layoutManager = linearLayoutManager
@@ -175,15 +177,16 @@ class MyNotesActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu,menu)
+        menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item?.itemId == R.id.blog) {
-            Log.d(TAG, "Clicked on Blog")
+            //Log.d(TAG, "Clicked on Blog")
+            val intent = Intent(this, BlogActivity::class.java)
+            startActivity(intent)
         }
-        return super.onOptionsItemSelected(item!!)
+        return super.onOptionsItemSelected(item)
     }
 }

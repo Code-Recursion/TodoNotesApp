@@ -36,7 +36,7 @@ class BlogActivity : AppCompatActivity() {
                     }
 
                     override fun onError(anError: ANError?) {
-                        Log.d(TAG, anError?.localizedMessage)
+                        Log.d(TAG, anError?.localizedMessage!!)
                     }
 
                 })

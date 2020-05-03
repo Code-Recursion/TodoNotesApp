@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.Constraints
-import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.example.todonotesapp.utils.AppConstant
@@ -137,7 +136,7 @@ class MyNotesActivity : AppCompatActivity() {
                 Toast.makeText(this@MyNotesActivity, "Title or Description can't be Empty!", Toast.LENGTH_SHORT).show()
             }
             dialog.hide()
-//            setUpRecyclerView()
+            //setUpRecyclerView()
         }
         dialog.show()
     }
@@ -149,7 +148,7 @@ class MyNotesActivity : AppCompatActivity() {
         notesDao.insert(notes)
     }
 
-    private fun setUpRecyclerView() {
+  private fun setUpRecyclerView() {
         val itemClickListener = object : ItemClickListener {
 
             override fun onClick(notes: Notes) {
@@ -177,16 +176,19 @@ class MyNotesActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu,menu)
+        Log.d(TAG, "BEFORE BEFORE")
         return true
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item?.itemId == R.id.blog) {
-            //Log.d(TAG, "Clicked on Blog")
-            val intent = Intent(this, BlogActivity::class.java)
+            Log.d(TAG, "AFTER AFTER Clicked on Blog")
+            val intent = Intent(this@MyNotesActivity, BlogActivity::class.java)
             startActivity(intent)
         }
-        return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item!!)
     }
 }

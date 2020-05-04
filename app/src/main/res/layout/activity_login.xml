@@ -15,6 +15,7 @@
         android:layout_marginTop="260dp"
         android:layout_marginEnd="26dp"
         android:hint="Full Name"
+            android:textColorHint="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00A21919"
+            android:textColor="@color/colorPrimaryDark"
             android:backgroundTint="#0007FC0B"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,12 +40,14 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="26dp"
         android:hint="User Name"
+        android:textColorHint="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextUsername"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -71,6 +75,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:text="LOGIN"
+        android:textColor="@color/cardview_dark_background"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="38dp"
         android:textStyle="bold"

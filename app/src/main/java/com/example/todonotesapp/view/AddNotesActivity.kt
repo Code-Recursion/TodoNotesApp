@@ -106,7 +106,7 @@ class AddNotesActivity : AppCompatActivity() {
         val textViewGallery : TextView = view.findViewById(R.id.textViewGallery)
         val dialog = AlertDialog.Builder(this)
                 .setView(view)
-                .setCancelable(true)
+                .setCancelable(false)
                 .create()
 
         textViewCamera.setOnClickListener(object:View.OnClickListener{

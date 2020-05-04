@@ -2,37 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.todonotesapp">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:name=".NotesApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Todo App"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config"
-
-        >
-        <activity android:name=".view.BlogActivity"/>
+        android:theme="@style/AppTheme">
+        <activity android:name=".onboarding.OnBoardingActivity"
+            android:theme="@style/NoToolBar">
+        </activity>
+        <activity android:name=".view.BlogActivity" />
 
         <provider
-            android:authorities="${applicationId}.provider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_path"/>
-        </provider>
-
-
-        <!--firebase_service-->
-
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path" />
+        </provider> <!-- firebase_service -->
         <service
             android:name=".fcm.MyFirebaseMessagingService"
             android:exported="false">
@@ -41,7 +38,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".view.AddNotesActivity"></activity>
+        <activity android:name=".view.AddNotesActivity" />
         <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,10 +46,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".view.MainActivity" />
         <activity android:name=".view.DetailActivity" />
-        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.LoginActivity"
+            android:theme="@style/NoToolBar"
+            />
         <activity android:name=".view.MyNotesActivity" />
     </application>
 
